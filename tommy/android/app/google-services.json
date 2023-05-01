@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1019734157470",
+    "project_id": "mynotes-apptestguy",
+    "storage_bucket": "mynotes-apptestguy.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1019734157470:android:7916bbdbc42b9c8041738f",
+        "android_client_info": {
+          "package_name": "com.example.tommy"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1019734157470-2c9dksrab65nvhp4v2oraburgfdipmht.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBbjVbV2YGwTc40cmksYixRXynXUYRopUk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1019734157470-2c9dksrab65nvhp4v2oraburgfdipmht.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
