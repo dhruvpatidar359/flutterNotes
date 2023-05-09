@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:tommy/services/auth/auth_service.dart';
 import 'package:tommy/services/crud/note_service.dart';
@@ -26,8 +28,13 @@ class _NewNotesViewState extends State<NewNotesView> {
 
   void _textControllerListner() async {
     final note = _note;
+    log("hi");
+    log(note.toString());
+
     if (note == null) return;
+
     final text = _textEditingController.text;
+    log(text + " i ");
 
     await _notesService.updateNote(
       note: note,
@@ -38,17 +45,25 @@ class _NewNotesViewState extends State<NewNotesView> {
   void _setUpTextControllerListner() {
     _textEditingController.removeListener(_textControllerListner);
     _textEditingController.addListener(_textControllerListner);
+   
   }
 
   Future<DatabaseNote> createNewNote() async {
     final existingNote = _note;
+  
     if (existingNote != null) {
       return existingNote;
     }
+
     final currentUser = AuthService.firebase().currentUser!;
+
     final email = currentUser.email!;
+   
     final owner = await _notesService.getUser(email: email);
-    return await _notesService.createNote(owner: owner);
+   
+    final t = await _notesService.createNote(owner: owner);
+ 
+    return t;
   }
 
 // this is for the deleting purpose
@@ -62,6 +77,7 @@ class _NewNotesViewState extends State<NewNotesView> {
   void _saveNoteIfTextNotEmpty() async {
     final note = _note;
     final text = _textEditingController.text;
+    print(text);
 
     if (note != null && text.isNotEmpty) {
       await _notesService.updateNote(
@@ -90,11 +106,8 @@ class _NewNotesViewState extends State<NewNotesView> {
           future: createNewNote(),
           builder: (context, snapshot) {
             switch (snapshot.connectionState) {
-
-            
-
               case ConnectionState.done:
-                _note = snapshot.data as DatabaseNote;
+                _note = snapshot.data;
                 _setUpTextControllerListner();
                 // TODO: Handle this case.
                 return TextField(

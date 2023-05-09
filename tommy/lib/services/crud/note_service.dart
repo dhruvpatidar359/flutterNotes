@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 
 import 'package:flutter/foundation.dart';
 import 'package:sqflite/sqflite.dart';
@@ -12,12 +13,16 @@ class NotesService {
   Database? _db;
   List<DatabaseNote> _notes = [];
   static final NotesService _shared = NotesService._sharedInstance();
-  NotesService._sharedInstance();
+  NotesService._sharedInstance() {
+    _notesStreamController =
+        StreamController<List<DatabaseNote>>.broadcast(onListen: () {
+      _notesStreamController.sink.add(_notes);
+    });
+  }
 
   factory NotesService() => _shared;
 
-  final _notesStreamController =
-      StreamController<List<DatabaseNote>>.broadcast();
+  late final StreamController<List<DatabaseNote>> _notesStreamController;
 
   Stream<List<DatabaseNote>> get allNotes => _notesStreamController.stream;
 
@@ -104,9 +109,11 @@ class NotesService {
   Future<DatabaseNote> createNote({required DatabaseUser owner}) async {
     await _ensureDbIsOpen();
     final db = _getDatabaseOrThrow();
-    // make sure the owner exists in the database with  correc id
-    final dbUser = getUser(email: owner.email);
+    // make sure the owner exists in the database with  correct id
+    final dbUser = await getUser(email: owner.email);
+   
     if (dbUser != owner) {
+ 
       throw CouldNotFindUser();
     } else {
       const text = '';
@@ -136,6 +143,9 @@ class NotesService {
     if (results.isEmpty) {
       throw CouldNotFindUser();
     } else {
+      // log("chooodd");
+      // log(results.first.toString());
+      // log(DatabaseUser.fromRow(results.first).toString());
       return DatabaseUser.fromRow(results.first);
     }
   }
@@ -276,12 +286,12 @@ const userIdColumn = 'user_id';
 const textColumn = 'text';
 const syncColumn = 'is_synced_with_cloud';
 const dbName = 'notes.db';
-const noteTable = 'notes';
+const noteTable = 'note';
 const userTable = 'user';
 const constcreateUser = ''' CREATE TABLE IF NOT EXISTS "user" (
-	"Id"	INTEGER NOT NULL,
+	"id"	INTEGER NOT NULL,
 	"email"	TEXT NOT NULL UNIQUE,
-	PRIMARY KEY("Id")
+	PRIMARY KEY("id")
 );''';
 
 const constcreateNote = '''CREATE TABLE IF NOT EXISTS "note" (
@@ -289,6 +299,29 @@ const constcreateNote = '''CREATE TABLE IF NOT EXISTS "note" (
 	"user_id"	INTEGER NOT NULL,
 	"text"	TEXT,
 	"is_synced_with_cloud"	INTEGER NOT NULL DEFAULT 0,
-	FOREIGN KEY("user_id") REFERENCES "user"("Id"),
+	FOREIGN KEY("user_id") REFERENCES "user"("id"),
 	PRIMARY KEY("id")
 ); ''';
+
+
+// const dbName = 'notes.db';
+// const noteTable = 'note';
+// const userTable = 'user';
+// const idColumn = 'id';
+// const emailColumn = 'email';
+// const userIdColumn = 'user_id';
+// const textColumn = 'text';
+// const isSyncedWithCloudColumn = 'is_synced_with_cloud';
+// const createUserTable = '''CREATE TABLE IF NOT EXISTS "user" (
+//         "id"	INTEGER NOT NULL,
+//         "email"	TEXT NOT NULL UNIQUE,
+//         PRIMARY KEY("id" AUTOINCREMENT)
+//       );''';
+// const createNoteTable = '''CREATE TABLE IF NOT EXISTS "note" (
+//         "id"	INTEGER NOT NULL,
+//         "user_id"	INTEGER NOT NULL,
+//         "text"	TEXT,
+//         "is_synced_with_cloud"	INTEGER NOT NULL DEFAULT 0,
+//         FOREIGN KEY("user_id") REFERENCES "user"("id"),
+//         PRIMARY KEY("id" AUTOINCREMENT)
+//       );''';
