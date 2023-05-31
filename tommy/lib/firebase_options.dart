@@ -59,7 +59,7 @@ class DefaultFirebaseOptions {
     projectId: 'mynotes-apptestguy',
     storageBucket: 'mynotes-apptestguy.appspot.com',
   );
-
+ 
   static const FirebaseOptions ios = FirebaseOptions(
     apiKey: 'AIzaSyBIURyrXfdqTlq-yYW7j5vt3ARlifoK5Hg',
     appId: '1:1019734157470:ios:bea1ea212f1f1e9d41738f',
