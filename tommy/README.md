@@ -2,12 +2,12 @@
 
 A simple flutter project that can be used for storing notes and deleting it.
 
-## Simple Ui Images
+## Simple Ui
 
-![WhatsApp Image 2023-07-14 at 4 58 41 PM (2)](https://github.com/dhruvpatidar359/flutterNotes/assets/103873587/b463b411-b100-4569-b73c-cb1ee2fcb59f)
-![WhatsApp Image 2023-07-14 at 4 58 41 PM (1)](https://github.com/dhruvpatidar359/flutterNotes/assets/103873587/f6607e46-b3af-4035-811b-74e3aab4d83f)
 ![WhatsApp Image 2023-07-14 at 4 58 41 PM](https://github.com/dhruvpatidar359/flutterNotes/assets/103873587/727babf0-b699-4e55-8e5c-f13971b3c3a4)
 ![WhatsApp Image 2023-07-14 at 4 58 40 PM](https://github.com/dhruvpatidar359/flutterNotes/assets/103873587/26e10dc3-ff8f-44e7-b1c6-8a5231d18508)
+![WhatsApp Image 2023-07-14 at 4 58 41 PM (1)](https://github.com/dhruvpatidar359/flutterNotes/assets/103873587/f6607e46-b3af-4035-811b-74e3aab4d83f)
+
 
 
 
