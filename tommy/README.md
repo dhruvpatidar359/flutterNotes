@@ -1,4 +1,4 @@
-# tommy
+# Flutter Notes
 
 A new Flutter project.
 
